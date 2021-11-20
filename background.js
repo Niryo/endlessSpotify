@@ -6,6 +6,13 @@ async function getCurrentTab() {
   return tab;
 }
 
+async function getAllTabs() {
+  let allTabs = await chrome.tabs.query({currentWindow: true});
+  const spotifyTab = allTabs.find((tab) => tab.url.includes('spotify'));
+  console.log(spotifyTab)
+}
+
+
 function showStatus(status) {
   const statusElement = document.querySelector('[id="blamos"]');
   if(!statusElement) {
@@ -37,6 +44,7 @@ async function runContentFunction(func, args = []) {
 }
 
 setInterval(async () => {
+  await getAllTabs();
  const activeTab = await getCurrentTab();
  if(activeTab && activeTab.url.includes('spotify')) {
    await runContentFunction(showStatus, [activeTab.audible ? 'playing': `not playing (${counter})`])
