@@ -1,5 +1,6 @@
 let lastTime;
 let counter = 0;
+let clickOnPlayTries = 0;
 
 function probPlaybackProgress() {
   const playbackElement = document.querySelector('[data-testid="playback-position"]');
@@ -34,6 +35,7 @@ setInterval(() => {
       counter++;
     } else {
       lastTime = currentTime;
+      clickOnPlayTries = 0;
       counter = 0;
     }
 
@@ -42,6 +44,11 @@ setInterval(() => {
     if (counter > 20) {
       clickOnPlay();
       counter = 0;
+      clickOnPlayTries++;
+    }
+
+    if(clickOnPlayTries === 3) {
+      location.reload();
     }
   }
 }, 1000);
