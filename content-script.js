@@ -39,7 +39,7 @@ setInterval(() => {
       counter = 0;
     }
 
-    showStatus(counter === 0 ? 'playing': `not playing (${counter}), tries: ${clickOnPlay}`);
+    showStatus(counter === 0 ? 'playing': `not playing (${counter}), tries: ${clickOnPlayTries}`);
     if(clickOnPlayTries === 3) {
       location.reload();
     }
