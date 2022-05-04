@@ -7,14 +7,23 @@ function probPlaybackProgress() {
   return playbackElement.innerHTML;
 }
 
+async function checkConnection() {
+  try {
+    await fetch('https://google.com', {mode: 'no-cors'});
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function showStatus(status) {
   const statusElement = document.querySelector('[id="blamos"]');
-  if(!statusElement) {
+  if (!statusElement) {
     const div = document.createElement("div");
     div.style.width = "150px";
     div.style.background = "blue";
     div.style.display = "block";
-    div.style.zIndex= 999999999
+    div.style.zIndex = 999999999
     div.style.position = "absolute";
     div.id = "blamos";
     document.body.appendChild(div);
@@ -27,9 +36,8 @@ function clickOnPlay() {
 }
 
 
-setInterval(() => {
+setInterval(async () => {
   const currentTime = probPlaybackProgress();
-  console.log(currentTime,lastTime)
   if (currentTime) {
     if (currentTime === lastTime) {
       counter++;
@@ -39,9 +47,12 @@ setInterval(() => {
       counter = 0;
     }
 
-    showStatus(counter === 0 ? 'playing': `not playing (${counter}), tries: ${clickOnPlayTries}`);
-    if(clickOnPlayTries === 3) {
-      location.reload();
+    showStatus(counter === 0 ? 'playing' : `not playing (${counter}), tries: ${clickOnPlayTries}`);
+    if (clickOnPlayTries >= 3) {
+      const isConnected = await checkConnection();
+      if (isConnected) {
+        location.reload();
+      }
     }
 
     if (counter > 20) {
