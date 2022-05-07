@@ -32,7 +32,10 @@ function showStatus(status) {
 }
 
 function clickOnPlay() {
-  document.querySelector('[data-testid="play-button"]').click()
+  try { 
+    document.querySelector('[data-testid="play-button"]').click()
+  } catch(e) {
+  }
 }
 
 
