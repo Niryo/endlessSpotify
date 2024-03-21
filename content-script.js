@@ -1,10 +1,13 @@
 let lastTime;
 let counter = 0;
 let clickOnPlayTries = 0;
+setInterval(() => {
+  chrome.runtime.sendMessage('ping');
+}, 2*60*1000);
 
 function probPlaybackProgress() {
   const playbackElement = document.querySelector('[data-testid="playback-position"]');
-  return playbackElement.innerHTML;
+  return playbackElement?.innerHTML;
 }
 
 async function checkConnection() {

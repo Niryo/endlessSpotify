@@ -6,14 +6,19 @@
   "permissions": [
     "tabs",
     "scripting",
+    "alarms",
     "activeTab"
   ],
   "host_permissions": [
     "https://*.spotify.com/*"
 ],
+"background": {
+  "service_worker": "service-worker.js"
+},
   "content_scripts": [
     {
       "matches": ["https://*.spotify.com/*"],
+      "run_at": "document_start",
       "js": ["content-script.js"]
     }
   ]
