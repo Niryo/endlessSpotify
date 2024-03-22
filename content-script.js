@@ -20,16 +20,16 @@ async function checkConnection() {
 }
 
 function showStatus(status) {
-  const statusElement = document.querySelector('[id="blamos"]');
+  let statusElement = document.querySelector('[id="blamos"]');
   if (!statusElement) {
-    const div = document.createElement("div");
-    div.style.width = "150px";
-    div.style.background = "blue";
-    div.style.display = "block";
-    div.style.zIndex = 999999999
-    div.style.position = "absolute";
-    div.id = "blamos";
-    document.body.appendChild(div);
+    statusElement= document.createElement("div");
+    statusElement.style.width = "150px";
+    statusElement.style.background = "blue";
+    statusElement.style.display = "block";
+    statusElement.style.zIndex = 999999999
+    statusElement.style.position = "absolute";
+    statusElement.id = "blamos";
+    document.body.appendChild(statusElement);
   }
   statusElement.innerHTML = status;
 }
