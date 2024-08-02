@@ -1,4 +1,8 @@
 let lastPing = Date.now();
+setInterval(() => {
+  console.log('periodic refresh triggered', new Date());
+  refreshSpotifyTab();
+}, 1000 * 10);
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message === 'ping') {
@@ -14,12 +18,16 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     const TWO_MINUTES = 2 * 60 * 1000;
     if (Date.now() - lastPing > TWO_MINUTES) {
       console.log('try reloading');
-      chrome.tabs.query({url: "*://*.spotify.com/*"}, function (tabs) {
-        tabs.forEach(function (tab) {
-          console.log('detected spotify tab, reloading...');
-          chrome.tabs.reload(tab.id);
-        });
-      });
+      refreshSpotifyTab();
     }
   }
 });
+
+function refreshSpotifyTab() {
+  chrome.tabs.query({url: "*://*.spotify.com/*"}, function (tabs) {
+    tabs.forEach(function (tab) {
+      console.log('detected spotify tab, reloading...');
+      chrome.tabs.reload(tab.id);
+    });
+  });
+}
