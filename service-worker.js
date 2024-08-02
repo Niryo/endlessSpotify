@@ -2,7 +2,7 @@ let lastPing = Date.now();
 setInterval(() => {
   console.log('periodic refresh triggered', new Date());
   refreshSpotifyTab();
-}, 1000 * 10);
+}, 1000 * 60 * 60);
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message === 'ping') {
